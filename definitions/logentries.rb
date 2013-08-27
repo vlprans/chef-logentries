@@ -18,7 +18,7 @@ define :logentries do
       command 'le init'
       notifies :install, 'package[logentries-daemon]'
     end
-  
+
   when :reinit
     execute "logentries reinit" do
       user defaults[:user]
@@ -64,6 +64,7 @@ define :logentries do
       command script.flatten.join ' '
       not_if "grep -qE '^agent-key = .+$' /etc/le/config" unless !!defaults[:force]
       notifies :install, 'package[logentries-daemon]'
+      notifies :start, 'service[logentries]'
     end
 
   when :follow

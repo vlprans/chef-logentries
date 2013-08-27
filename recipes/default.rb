@@ -11,3 +11,8 @@ package 'logentries'
 package 'logentries-daemon' do
   action :nothing
 end
+
+service 'logentries' do
+  supports :status => true, :restart => true
+  action :nothing
+end
